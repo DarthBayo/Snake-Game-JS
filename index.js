@@ -21,9 +21,9 @@
             let background = new Image();
             background.src = "img/background.png";
 
-            // Snake-Head Image
+            // Snake-Head Imagew
             let snakeHead = new Image();
-            snakeHead.src = "img/snake-head-left.png";
+            snakeHead.src = "img/snake-head-right.png";
 
             // Fruit Image
             let fruit = new Image();
@@ -31,29 +31,38 @@
 
             // Setting snake size and drawing on canvas
             let snake = {x: gametable.x/2, y: gametable.y/2};
-            let food = {x: 0, y: 0};
 
-            document.addEventListener("keypress", event => {
-                if ( event.key == "a" && snake.x != 0)
+            // Setting food respawn
+            let food = {x: 0, y: 0};
+            food.x = Math.floor((Math.random() * 10) * block);
+            food.y = Math.floor((Math.random() * 10) * block);
+
+            // Settings Logs Fruit and snake
+            let logs = {
+                snakeX: 0,
+                snakeY: 0,
+                foodX: 0,
+                foodY: 0
+            };
+
+            document.addEventListener("keydown", event => {
+                if ( (event.key == "a" || event.key == "ArrowLeft") && snake.x != 0)
                 {
                     snake.x -= block;
                 }
-                else if ( event.key == "w" && snake.y != 0)
+                else if ( (event.key == "w" || event.key == "ArrowUp") && snake.y != 0)
                 {
                     snake.y -= block;
                 }
-                else if ( event.key == "s" && snake.y < (gametable.y - block))
+                else if ( (event.key == "s" || event.key == "ArrowDown") && snake.y < (gametable.y - block))
                 {
                     snake.y += block;
                 }
-                else if ( event.key == "d" && snake.x < (gametable.x - block))
+                else if ( (event.key == "d" || event.key == "ArrowRight") && snake.x < (gametable.x - block))
                 {
                     snake.x += block;
                 }
             });
-
-            food.x = Math.floor(Math.random() * gametable.x);
-            food.y = Math.floor(Math.random() * gametable.y);
 
             function draw()
             {
@@ -61,8 +70,23 @@
                 game.drawImage(background, 0, 0);
                 game.drawImage(snakeHead, snake.x, snake.y);
                 game.drawImage(fruit, food.x, food.y);
-                // Snake console
-                console.log(`X: ${snake.x} || Y: ${snake.y}`);
+
+                // Snake and Food console
+                if (logs.snakeX != snake.x || 
+                    logs.snakeY != snake.y || 
+                    logs.foodX != food.x ||
+                    logs.foodY != food.y
+                )
+                {
+                    console.log(`Snake.X: ${snake.x} || Snake.Y: ${snake.y}`);
+                    console.log(`Food.X: ${food.x} || Food.Y: ${food.y}`);
+                    
+                    // Settings again
+                    logs.snakeX = snake.x;
+                    logs.snakeY = snake.y
+                    logs.foodX = food.x;
+                    logs.foodY = food.y;
+                }
             }
 
             setInterval(draw, 100);
