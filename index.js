@@ -12,6 +12,27 @@
             const pixel = 4; 
             const block = pixel*2;
 
+            // Score variables
+            let score = 0;
+            let highScore = 0;
+            function incrementScores()
+            {
+                score += 1;
+
+                if ( highScore <= score )
+                {
+                    highScore = score;
+                }
+
+                document.getElementById("score").textContent = "Score: " + score;
+                document.getElementById("high").textContent = "HighScore: " + highScore;
+            }
+            document.getElementById("scoreBoard").style.alignItems = "center";
+            document.getElementById("scoreBoard").style.alignSelf = "center";
+            document.getElementById("scoreBoard").style.textAlign = "center";
+            document.getElementById("scoreBoard").style.fontFamily = "arial";
+            document.getElementById("scoreBoard").style.fontSize = "18px";
+
             // Settings canvas size
             const gametable = {x: pixel*64, y: pixel*64};
             board.setAttribute("width", gametable.x.toString());
@@ -34,8 +55,18 @@
 
             // Setting food respawn
             let food = {x: 0, y: 0};
-            food.x = Math.floor(Math.random() * 20 + 1) * block;
-            food.y = Math.floor(Math.random() * 30 + 1) * block;
+            function fruitSpawn()
+            {
+                food.x = Math.floor(Math.random() * 20 + 1) * block;
+                food.y = Math.floor(Math.random() * 30 + 1) * block;
+
+                if (food.x > 256 || food.y >= 256)
+                {
+                    food.x = Math.floor(Math.random() * 20 + 1) * block;
+                    food.y = Math.floor(Math.random() * 30 + 1) * block;
+                }
+            };
+            fruitSpawn();
 
             // Settings Logs Fruit and snake
             let logs = {
@@ -74,10 +105,10 @@
                 game.drawImage(snakeHead, snake.x, snake.y);
 
                 // Eating and Fruit new Respawn
-                if ( (snake.x == food.x && snake.y == food.y) || (food.x > 256 || food.y >= 256) )
+                if ( snake.x == food.x && snake.y == food.y )
                 {
-                    food.x = Math.floor(Math.random() * 17 + 1) * block;
-                    food.y = Math.floor(Math.random() * 30 + 1) * block;
+                    fruitSpawn();
+                    incrementScores();
                 }
 
                 // Snake and Food console
@@ -87,8 +118,11 @@
                     logs.foodY != food.y
                 )
                 {
-                    console.log(`Snake.X: ${snake.x} || Snake.Y: ${snake.y}`);
-                    console.log(`Food.X: ${food.x} || Food.Y: ${food.y}`);
+                    console.clear();
+                    console.log(`Snake.X: ${snake.x}`);
+                    console.log(`Snake.Y: ${snake.y}`);
+                    console.log(`Food.X: ${food.x}`);
+                    console.log(`Food.Y: ${food.y}`);
                     
                     // Settings again
                     logs.snakeX = snake.x;
