@@ -4,6 +4,19 @@
             // Clean IMG tag
             document.getElementById("back").remove();
 
+            // Set score points
+            function setScore(pScore) {
+                let p = document.getElementById("score");
+                p.textContent = "Score: " + pScore;
+
+                p.style.alignContent = "center";
+                p.style.alignSelf    = "center";
+                p.style.textAlign    = "center";
+                p.style.fontFamily   = "arial";
+                p.style.fontSize     = "18px";
+                p.style.margin      = "1px";
+            }
+
             // Getting canvas
             let board = document.getElementById("game");
             let game  = board.getContext("2d");
@@ -11,6 +24,9 @@
             // Settings pixels and box size
             const pixel = 4; 
             const block = pixel*2;
+
+            // Settings score point
+            let score = 0;
 
             // Settings canvas size
             const gametable = {x: pixel*64, y: pixel*64};
@@ -65,6 +81,7 @@
                 }
             });
 
+            setScore(score);
             // Draw every 0.1 s
             function draw()
             {
@@ -76,14 +93,14 @@
                 // Eating and Fruit new Respawn
                 if ( snake.x == food.x && snake.y == food.y )
                 {
-                    food.x = Math.floor(64 / (Math.random() * 10)) * block;
-                    food.y = Math.floor((Math.random() * 10)) * block;
+                    food.x = Math.floor(Math.random() * 17 + 1) * block;
+                    food.y = Math.floor(Math.random() * 15 + 1) * block;
+                    setScore(score += 1);
                 }
-
-                if (food.x > 256 || food.y >= 256)
+                else if (food.x > 256 || food.y >= 256)
                 {
-                    food.x = Math.floor(64 / (Math.random() * 10)) * block;
-                    food.y = Math.floor((Math.random() * 10)) * block;
+                    food.x = Math.floor(Math.random() * 17 + 1) * block;
+                    food.y = Math.floor(Math.random() * 15 + 1) * block;
                 }
 
                 // Snake and Food console
