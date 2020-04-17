@@ -2,7 +2,7 @@
     () => {
         document.addEventListener("DOMContentLoaded", () => {
             // Clean IMG tag
-            document.getElementById("back").remove();
+            document.getElementById("back").remove();    
 
             // Getting canvas
             let board = document.getElementById("game");
@@ -23,19 +23,19 @@
 
             // Snake-Head Imagew
             let snakeHead = new Image();
-            snakeHead.src = "img/snake-head-right.png";
+            snakeHead.src = "img/snake-head-left.png";
 
             // Fruit Image
             let fruit = new Image();
             fruit.src = "img/fruit.png";
 
             // Setting snake size and drawing on canvas
-            let snake = {x: gametable.x/2, y: gametable.y/2};
+            let snake = {x: gametable.x/2, y: gametable.y/2, size: 0};
 
             // Setting food respawn
             let food = {x: 0, y: 0};
-            food.x = Math.floor(Math.random() * 17 + 1) * block;
-            food.y = Math.floor(Math.random() * 15 + 1) * block;
+            food.x = Math.floor(Math.random() * 20 + 1) * block;
+            food.y = Math.floor(Math.random() * 30 + 1) * block;
 
             // Settings Logs Fruit and snake
             let logs = {
@@ -70,20 +70,14 @@
             {
                 // Drawing img
                 game.drawImage(background, 0, 0);
-                game.drawImage(snakeHead, snake.x, snake.y);
                 game.drawImage(fruit, food.x, food.y);
+                game.drawImage(snakeHead, snake.x, snake.y);
 
                 // Eating and Fruit new Respawn
-                if ( snake.x == food.x && snake.y == food.y )
+                if ( (snake.x == food.x && snake.y == food.y) || (food.x > 256 || food.y >= 256) )
                 {
-                    food.x = Math.floor(64 / (Math.random() * 10)) * block;
-                    food.y = Math.floor((Math.random() * 10)) * block;
-                }
-
-                if (food.x > 256 || food.y >= 256)
-                {
-                    food.x = Math.floor(64 / (Math.random() * 10)) * block;
-                    food.y = Math.floor((Math.random() * 10)) * block;
+                    food.x = Math.floor(Math.random() * 17 + 1) * block;
+                    food.y = Math.floor(Math.random() * 30 + 1) * block;
                 }
 
                 // Snake and Food console
@@ -105,7 +99,7 @@
             }
 
             // Reload everyday 0.1 s
-            setInterval(draw, 100);
+            setInterval(draw, 30);
         });
     }
 )()
