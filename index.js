@@ -14,18 +14,10 @@
 
             // Score variables
             let score = 0;
-            let highScore = 0;
             function incrementScores()
             {
                 score += 1;
-
-                if ( highScore <= score )
-                {
-                    highScore = score;
-                }
-
                 document.getElementById("score").textContent = "Score: " + score;
-                document.getElementById("high").textContent = "HighScore: " + highScore;
             }
             document.getElementById("scoreBoard").style.alignItems = "center";
             document.getElementById("scoreBoard").style.alignSelf = "center";
@@ -51,7 +43,12 @@
             fruit.src = "img/fruit.png";
 
             // Setting snake size and drawing on canvas
-            let snake = {x: gametable.x/2, y: gametable.y/2, size: 0};
+            let snake = {
+                x: gametable.x/2,
+                y: gametable.y/2,
+                size: 0,
+                direction: 0 // ASCII values
+            };
 
             // Setting food respawn
             let food = {x: 0, y: 0};
@@ -78,27 +75,38 @@
 
             // Move the snake
             document.addEventListener("keydown", event => {
-                if ( snake.x != 0 && (event.key == "a" || event.key == "ArrowLeft") )
+                if ( event.key == "a" || event.key == "ArrowLeft" )
                 {
-                    snake.x -= block;
+                    snake.direction = 65;
                 }
-                else if ( snake.y != 0 && (event.key == "w" || event.key == "ArrowUp") )
+                else if ( event.key == "w" || event.key == "ArrowUp" )
                 {
-                    snake.y -= block;
+                    snake.direction = 87;
                 }
-                else if ( snake.y < (gametable.y - block) && (event.key == "s" || event.key == "ArrowDown") )
+                else if ( event.key == "s" || event.key == "ArrowDown" )
                 {
-                    snake.y += block;
+                    snake.direction = 83;
                 }
-                else if ( snake.x < (gametable.x - block) && (event.key == "d" || event.key == "ArrowRight") )
+                else if ( event.key == "d" || event.key == "ArrowRight" )
                 {
-                    snake.x += block;
+                    snake.direction = 68;
                 }
             });
 
             // Draw every 0.1 s
             function draw()
             {
+                // Directions
+                // Left
+                if ( snake.direction == 65 && snake.x != 0 ) snake.x -= block;
+                // Up
+                if ( snake.direction == 87 && snake.y != 0 ) snake.y -= block;
+                // Down
+                if ( snake.direction == 83 && snake.y < (gametable.y - block) ) snake.y += block;
+                // Right
+                if ( snake.direction == 68 && snake.x < (gametable.x - block) ) snake.x += block;
+
+
                 // Drawing img
                 game.drawImage(background, 0, 0);
                 game.drawImage(fruit, food.x, food.y);
@@ -133,7 +141,7 @@
             }
 
             // Reload everyday 0.1 s
-            setInterval(draw, 30);
+            setInterval(draw, 100);
         });
     }
 )()
