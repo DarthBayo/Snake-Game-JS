@@ -46,9 +46,18 @@
             let snake = {
                 x: gametable.x/2,
                 y: gametable.y/2,
-                size: 0,
-                direction: 0 // ASCII values
+                direction: 0, // ASCII values,
+                body: [
+                    // { 
+                    //    x: posX,
+                    //   y: posY 
+                    // }
+                 ]
             };
+            function newBody()
+            {
+                snake.body.push({x: 0, y: 0});
+            }
 
             // Setting food respawn
             let food = {x: 0, y: 0};
@@ -75,19 +84,19 @@
 
             // Move the snake
             document.addEventListener("keydown", event => {
-                if ( event.key == "a" || event.key == "ArrowLeft" )
+                if ( (event.key == "a" || event.key == "ArrowLeft") && snake.direction != 68 )
                 {
                     snake.direction = 65;
                 }
-                else if ( event.key == "w" || event.key == "ArrowUp" )
+                else if ( (event.key == "w" || event.key == "ArrowUp") && snake.direction != 83 )
                 {
                     snake.direction = 87;
                 }
-                else if ( event.key == "s" || event.key == "ArrowDown" )
+                else if ( (event.key == "s" || event.key == "ArrowDown") && snake.direction != 87 )
                 {
                     snake.direction = 83;
                 }
-                else if ( event.key == "d" || event.key == "ArrowRight" )
+                else if ( (event.key == "d" || event.key == "ArrowRight") && snake.direction != 65 )
                 {
                     snake.direction = 68;
                 }
@@ -96,27 +105,50 @@
             // Draw every 0.1 s
             function draw()
             {
+
+                for (let i=0, j=i+1; i<snake.body.length; i++)
+                {
+                    if ( i == 0 )
+                    {
+                        snake.body[i].x = snake.x;
+                        snake.body[i].y = snake.y;
+                    }
+                    else
+                    {
+                        snake.body[j].x = snake.body[i].x;
+                        snake.body[j].x = snake.body[i].x
+                    }
+                }
+
                 // Directions
                 // Left
-                if ( snake.direction == 65 && snake.x != 0 ) snake.x -= block;
+                if ( snake.direction == 65 ) snake.x -= block;
                 // Up
-                if ( snake.direction == 87 && snake.y != 0 ) snake.y -= block;
+                if ( snake.direction == 87 ) snake.y -= block;
                 // Down
-                if ( snake.direction == 83 && snake.y < (gametable.y - block) ) snake.y += block;
+                if ( snake.direction == 83 ) snake.y += block;
                 // Right
-                if ( snake.direction == 68 && snake.x < (gametable.x - block) ) snake.x += block;
+                if ( snake.direction == 68 ) snake.x += block;
 
+                if ( snake.x == gametable.x ) snake.x = 0;
+                if ( snake.x < 0 ) snake.x = gametable.x;
+                if ( snake.y == gametable.y ) snake.y = 0;
+                if ( snake.y < 0 ) snake.y = gametable.y;
 
                 // Drawing img
                 game.drawImage(background, 0, 0);
                 game.drawImage(fruit, food.x, food.y);
                 game.drawImage(snakeHead, snake.x, snake.y);
+                snake.body.forEach( pos => {
+                    game.fillRect(pos.x, pos.y, block, block);
+                });
 
                 // Eating and Fruit new Respawn
                 if ( snake.x == food.x && snake.y == food.y )
                 {
                     fruitSpawn();
                     incrementScores();
+                    newBody();
                 }
 
                 // Snake and Food console
@@ -131,6 +163,7 @@
                     console.log(`Snake.Y: ${snake.y}`);
                     console.log(`Food.X: ${food.x}`);
                     console.log(`Food.Y: ${food.y}`);
+                    console.log(`Snake body: ${snake.body.length}`);
                     
                     // Settings again
                     logs.snakeX = snake.x;
