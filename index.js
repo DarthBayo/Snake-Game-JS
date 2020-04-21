@@ -56,7 +56,7 @@
             };
             function newBody()
             {
-                snake.body.push({x: 0, y: 0});
+                snake.body.push({x: logs.foodX, y: logs.foodY});
             }
 
             // Setting food respawn
@@ -105,8 +105,7 @@
             // Draw every 0.1 s
             function draw()
             {
-
-                for (let i=0, j=i+1; i<snake.body.length; i++)
+                for (let i=snake.body.length-1; i>=0; i--)
                 {
                     if ( i == 0 )
                     {
@@ -115,8 +114,8 @@
                     }
                     else
                     {
-                        snake.body[j].x = snake.body[i].x;
-                        snake.body[j].x = snake.body[i].x
+                        snake.body[i].x = snake.body[i-1].x;
+                        snake.body[i].y = snake.body[i-1].y;
                     }
                 }
 
@@ -174,7 +173,7 @@
             }
 
             // Reload everyday 0.1 s
-            setInterval(draw, 100);
+            setInterval(draw, 130);
         });
     }
 )()
