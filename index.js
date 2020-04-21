@@ -25,7 +25,6 @@
             const pixel = 4; 
             const block = pixel*2;
 
-<<<<<<< HEAD
             // Score variables
             let score = 0;
             function incrementScores()
@@ -38,10 +37,6 @@
             document.getElementById("scoreBoard").style.textAlign = "center";
             document.getElementById("scoreBoard").style.fontFamily = "arial";
             document.getElementById("scoreBoard").style.fontSize = "18px";
-=======
-            // Settings score point
-            let score = 0;
->>>>>>> 9c58d30d6cc25fe7eea69fc56ab19dd93dfbced9
 
             // Settings canvas size
             const gametable = {x: pixel*64, y: pixel*64};
@@ -165,20 +160,9 @@
                 // Eating and Fruit new Respawn
                 if ( snake.x == food.x && snake.y == food.y )
                 {
-<<<<<<< HEAD
                     fruitSpawn();
                     incrementScores();
                     newBody();
-=======
-                    food.x = Math.floor(Math.random() * 17 + 1) * block;
-                    food.y = Math.floor(Math.random() * 15 + 1) * block;
-                    setScore(score += 1);
-                }
-                else if (food.x > 256 || food.y >= 256)
-                {
-                    food.x = Math.floor(Math.random() * 17 + 1) * block;
-                    food.y = Math.floor(Math.random() * 15 + 1) * block;
->>>>>>> 9c58d30d6cc25fe7eea69fc56ab19dd93dfbced9
                 }
 
                 // Snake and Food console
