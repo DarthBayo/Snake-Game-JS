@@ -2,7 +2,8 @@
     () => {
         document.addEventListener("DOMContentLoaded", () => {
             // Clean IMG tag
-            document.getElementById("back").remove();    
+            document.getElementById("back").remove();
+            document.querySelector("body").style.backgroundColor = "#1b1f22";
 
             // Set score points
             function setScore(pScore) {
@@ -31,6 +32,7 @@
             {
                 score += 1;
                 document.getElementById("score").textContent = "Score: " + score;
+                document.getElementById("score").style.color = "#fff8ff";
             }
             document.getElementById("scoreBoard").style.alignItems = "center";
             document.getElementById("scoreBoard").style.alignSelf = "center";
@@ -49,7 +51,7 @@
 
             // Snake-Head Imagew
             let snakeHead = new Image();
-            snakeHead.src = "img/snake-head-left.png";
+            snakeHead.src = "img/snake-head.png";
 
             // Fruit Image
             let fruit = new Image();
@@ -97,19 +99,19 @@
 
             // Move the snake
             document.addEventListener("keydown", event => {
-                if ( (event.key == "a" || event.key == "ArrowLeft") && snake.direction != 68 )
+                if ( (event.key.toLowerCase() == "a" || event.key == "ArrowLeft") && snake.direction != 68 )
                 {
                     snake.direction = 65;
                 }
-                else if ( (event.key == "w" || event.key == "ArrowUp") && snake.direction != 83 )
+                else if ( (event.key.toLowerCase() == "w" || event.key == "ArrowUp") && snake.direction != 83 )
                 {
                     snake.direction = 87;
                 }
-                else if ( (event.key == "s" || event.key == "ArrowDown") && snake.direction != 87 )
+                else if ( (event.key.toLowerCase() == "s" || event.key == "ArrowDown") && snake.direction != 87 )
                 {
                     snake.direction = 83;
                 }
-                else if ( (event.key == "d" || event.key == "ArrowRight") && snake.direction != 65 )
+                else if ( (event.key.toLowerCase() == "d" || event.key == "ArrowRight") && snake.direction != 65 )
                 {
                     snake.direction = 68;
                 }
@@ -133,6 +135,18 @@
                     }
                 }
 
+                // Drawing img
+                game.drawImage(background, 0, 0);
+                
+                // Drawing Snake
+                snake.body.forEach( pos => {
+                    game.fillStyle = "#1b1f22";
+                    game.fillRect(pos.x, pos.y, block, block);
+                });
+
+                // Drawing Fruit
+                game.drawImage(fruit, food.x, food.y);
+
                 // Directions
                 // Left
                 if ( snake.direction == 65 ) snake.x -= block;
@@ -142,19 +156,12 @@
                 if ( snake.direction == 83 ) snake.y += block;
                 // Right
                 if ( snake.direction == 68 ) snake.x += block;
-
+                // Restarting the positions
                 if ( snake.x == gametable.x ) snake.x = 0;
                 if ( snake.x < 0 ) snake.x = gametable.x;
                 if ( snake.y == gametable.y ) snake.y = 0;
                 if ( snake.y < 0 ) snake.y = gametable.y;
-
-                // Drawing img
-                game.drawImage(background, 0, 0);
-                game.drawImage(fruit, food.x, food.y);
                 game.drawImage(snakeHead, snake.x, snake.y);
-                snake.body.forEach( pos => {
-                    game.fillRect(pos.x, pos.y, block, block);
-                });
 
                 // Eating and Fruit new Respawn
                 if ( snake.x == food.x && snake.y == food.y )
@@ -187,7 +194,7 @@
             }
 
             // Reload everyday 0.1 s
-            setInterval(draw, 130);
+            setInterval(draw, 50);
         });
     }
 )()
