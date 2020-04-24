@@ -3,20 +3,6 @@
         document.addEventListener("DOMContentLoaded", () => {
             // Clean IMG tag
             document.getElementById("back").remove();
-            document.querySelector("body").style.backgroundColor = "#1b1f22";
-
-            // Set score points
-            function setScore(pScore) {
-                let p = document.getElementById("score");
-                p.textContent = "Score: " + pScore;
-
-                p.style.alignContent = "center";
-                p.style.alignSelf    = "center";
-                p.style.textAlign    = "center";
-                p.style.fontFamily   = "arial";
-                p.style.fontSize     = "18px";
-                p.style.margin      = "1px";
-            }
 
             // Getting canvas
             let board = document.getElementById("game");
@@ -32,13 +18,7 @@
             {
                 score += 1;
                 document.getElementById("score").textContent = "Score: " + score;
-                document.getElementById("score").style.color = "#fff8ff";
             }
-            document.getElementById("scoreBoard").style.alignItems = "center";
-            document.getElementById("scoreBoard").style.alignSelf = "center";
-            document.getElementById("scoreBoard").style.textAlign = "center";
-            document.getElementById("scoreBoard").style.fontFamily = "arial";
-            document.getElementById("scoreBoard").style.fontSize = "18px";
 
             // Settings canvas size
             const gametable = {x: pixel*64, y: pixel*64};
@@ -47,15 +27,15 @@
 
             // Background Image
             let background = new Image();
-            background.src = "img/background.png";
+            background.src = "./img/background.png";
 
             // Snake-Head Imagew
             let snakeHead = new Image();
-            snakeHead.src = "img/snake-head.png";
+            snakeHead.src = "./img/snake-head.png";
 
             // Fruit Image
             let fruit = new Image();
-            fruit.src = "img/fruit.png";
+            fruit.src = "./img/fruit.png";
 
             // Setting snake size and drawing on canvas
             let snake = {
@@ -99,28 +79,26 @@
 
             // Move the snake
             document.addEventListener("keydown", event => {
-                if ( (event.key.toLowerCase() == "a" || event.key == "ArrowLeft") && snake.direction != 68 )
+                if ( (event.key.toLowerCase() == "a" || event.key.toLowerCase() == "h" || event.key == "ArrowLeft") && snake.direction != 68 )
                 {
                     snake.direction = 65;
                 }
-                else if ( (event.key.toLowerCase() == "w" || event.key == "ArrowUp") && snake.direction != 83 )
+                else if ( (event.key.toLowerCase() == "w" || event.key.toLowerCase() == "k" || event.key == "ArrowUp") && snake.direction != 83 )
                 {
                     snake.direction = 87;
                 }
-                else if ( (event.key.toLowerCase() == "s" || event.key == "ArrowDown") && snake.direction != 87 )
+                else if ( (event.key.toLowerCase() == "s" || event.key.toLowerCase() == "j" || event.key == "ArrowDown") && snake.direction != 87 )
                 {
                     snake.direction = 83;
                 }
-                else if ( (event.key.toLowerCase() == "d" || event.key == "ArrowRight") && snake.direction != 65 )
+                else if ( (event.key.toLowerCase() == "d" || event.key.toLowerCase() == "l" || event.key == "ArrowRight") && snake.direction != 65 )
                 {
                     snake.direction = 68;
                 }
             });
-
-            setScore(score);
-            // Draw every 0.1 s
-            function draw()
+            function snakeMove()
             {
+                // Body Directions
                 for (let i=snake.body.length-1; i>=0; i--)
                 {
                     if ( i == 0 )
@@ -135,19 +113,7 @@
                     }
                 }
 
-                // Drawing img
-                game.drawImage(background, 0, 0);
-                
-                // Drawing Snake
-                snake.body.forEach( pos => {
-                    game.fillStyle = "#1b1f22";
-                    game.fillRect(pos.x, pos.y, block, block);
-                });
-
-                // Drawing Fruit
-                game.drawImage(fruit, food.x, food.y);
-
-                // Directions
+                // Head Directions
                 // Left
                 if ( snake.direction == 65 ) snake.x -= block;
                 // Up
@@ -161,6 +127,26 @@
                 if ( snake.x < 0 ) snake.x = gametable.x;
                 if ( snake.y == gametable.y ) snake.y = 0;
                 if ( snake.y < 0 ) snake.y = gametable.y;
+            }
+
+            // Draw every 0.1 s
+            function draw()
+            {
+                // Snake Move
+                snakeMove();
+
+                // Drawing img
+                game.drawImage(background, 0, 0);
+                
+                // Drawing Snake
+                snake.body.forEach( pos => {
+                    game.fillStyle = "#1b1f22";
+                    game.fillRect(pos.x, pos.y, block, block);
+                });
+
+                // Drawing Fruit
+                game.drawImage(fruit, food.x, food.y);
+
                 game.drawImage(snakeHead, snake.x, snake.y);
 
                 // Eating and Fruit new Respawn
