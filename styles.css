@@ -1,0 +1,38 @@
+/* 
+    Imports
+*/
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap');
+
+/* 
+    Style
+*/
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1b1f22;
+    font-family: 'Quicksand', sans-serif, "Arial";
+    font-size: 18px;
+}
+
+#scoreBoard {
+    align-items: center;
+    align-self: center;
+    text-align: center;
+}
+
+#score {
+    margin: 4px;
+    margin-bottom: 8px;
+    color: #fff8ff;
+}
+
+#game {
+    padding: 0px;
+    margin: auto;
+    display: block;
+    zoom: 250%;
+}
