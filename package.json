@@ -1,0 +1,22 @@
+{
+    "name": "snakejs",
+    "version": "1.2.7",
+    "description": "Joguinho da cobrinha desenvolvido em Javascript",
+    "keywords": [
+        "jogo",
+        "cobra",
+        "javascript"
+    ],
+    "dependencies": {
+        "express": "^4.17.1",
+        "dotenv": "^8.2.0"
+    },
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "author": {
+        "name": "Giovani"
+    },
+    "license": "ISC"
+}
