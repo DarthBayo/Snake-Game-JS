@@ -65,7 +65,7 @@ article {
     }
 
     .controls div + div {
-        margin-left: 8px;
+        margin-left: 12px;
     }
 
     .controls div button {
@@ -73,7 +73,10 @@ article {
         padding: 20px 0;
         background-color: lightgrey;
         border: none;
-        border-radius: 6px;
         outline: none;
     }
+
+    .left, .right {
+        margin-top: 78px;
+    } 
 }
