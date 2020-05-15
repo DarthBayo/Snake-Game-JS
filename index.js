@@ -27,15 +27,15 @@
 
             // Background Image
             let background = new Image();
-            background.src = "./img/background.png";
+            background.src = "./img/background.webp";
 
             // Snake-Head Imagew
             let snakeHead = new Image();
-            snakeHead.src = "./img/snake-head.png";
+            snakeHead.src = "./img/snake-head.webp";
 
             // Fruit Image
             let fruit = new Image();
-            fruit.src = "./img/fruit.png";
+            fruit.src = "./img/fruit.webp";
 
             // Setting snake size and drawing on canvas
             let snake = {
