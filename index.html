@@ -11,14 +11,45 @@
     <!-- Initialize Images -->
     <img src="./img/background.png" id="back">
 
-    <article>
-        <hgroup id="scoreBoard">
-            <h1 id="score">Score: 0</h1>
-        </hgroup>
+    <article class="scoreBoard">
+        <h1 id="score">Score: 0</h1>
     </article>
 
     <!-- Game Canvas -->
     <canvas id="game"></canvas>
+
+    <!-- Control -->
+    <article class="controls">
+        <!-- UP -->
+        <div>
+            <button type="button" class="left">
+                LEFT
+            </button>
+        </div>
+
+        <!-- LEFT -->
+        <div>
+            <button type="button" class="up">
+                UP
+            </button>
+        </div>
+
+        <!-- DOWN -->
+        <div>
+            <button type="button" class="down">
+                DOWN
+            </button>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+            <button type="button" class="right">
+                RIGHT
+            </button>
+        </div>
+
+    </article>
+
     <script src="./index.js" rel="text/javascript"></script>
 </body>
 </html>

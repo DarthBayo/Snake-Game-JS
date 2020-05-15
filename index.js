@@ -96,6 +96,18 @@
                     snake.direction = 68;
                 }
             });
+            document.querySelector(".left").addEventListener("click", () => {
+                if (snake.direction !== 68) { snake.direction = 65; }
+            });
+            document.querySelector(".up").addEventListener("click", () => {
+                if (snake.direction !== 83) { snake.direction = 87; }
+            });
+            document.querySelector(".down").addEventListener("click", () => {
+                if (snake.direction !== 87) { snake.direction = 83; }
+            });
+            document.querySelector(".right").addEventListener("click", () => {
+                if (snake.direction !== 65) { snake.direction = 68; }
+            });
             function snakeMove()
             {
                 // Body Directions
@@ -157,6 +169,7 @@
                     newBody();
                 }
 
+                /*
                 // Snake and Food console
                 if (logs.snakeX != snake.x || 
                     logs.snakeY != snake.y || 
@@ -177,6 +190,7 @@
                     logs.foodX = food.x;
                     logs.foodY = food.y;
                 }
+                */
             }
 
             // Reload everyday 0.1 s

@@ -11,12 +11,17 @@
         "express": "^4.17.1",
         "dotenv": "^8.2.0"
     },
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    },
     "main": "server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "server": "nodemon ."
     },
     "author": {
-        "name": "Giovani"
+        "name": "Giovani Eduardo",
+        "url": "https://github.com/DarthBayo"
     },
-    "license": "ISC"
+    "license": "MIT"
 }

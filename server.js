@@ -7,4 +7,6 @@ app.use(express.static(__dirname + "/index.html"));
 app.use(express.static(__dirname));
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT);
+app.listen(PORT, () => {
+    console.log(`http://localhost:${PORT}`);
+});
