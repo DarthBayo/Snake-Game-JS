@@ -69,8 +69,8 @@ article {
     }
 
     .controls div button {
-        width: 62px;
-        padding: 6px;
+        width: 72px;
+        padding: 20px 0;
         background-color: lightgrey;
         border: none;
         border-radius: 6px;
